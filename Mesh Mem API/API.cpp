@@ -8,10 +8,7 @@
 
 using namespace rapidjson;
 xReference xMallocAPI (int size){
-    int po=size;
-    int* ptr= &po;
-    xReference temp (90,ptr);
-    return temp;
+
 }
 xReference API::xMalloc(int size, int* value) {
     xReference temp (size,value);
@@ -19,7 +16,7 @@ xReference API::xMalloc(int size, int* value) {
 }
 void API::xAssign(xReference reference, void *value) {}
 void API::xFree(xReference toFree) {}
-char* API::initialize(string host, int port) {
+string API::initialize(string host, int port) {
     StringBuffer jsonMsg;
     Writer<StringBuffer> writer(jsonMsg);
     writer.StartObject();
@@ -28,13 +25,11 @@ char* API::initialize(string host, int port) {
     writer.String("funcion");
     writer.String("token");
     writer.EndObject();
-    cout<<jsonMsg.GetString()<<endl;
     string output= jsonMsg.GetString();
     cliente.setConnection(host,to_string(port));
     cliente.writeData(output);
     string mensaje=cliente.read2();//bienvenida
-    string respuesta=cliente.read2();
-    cout<<respuesta<<endl;
+    string respuesta=cliente.read2(); //recibe el token
     const char* mensaje1=respuesta.c_str();
     Document doc;
     doc.ParseInsitu((char*)mensaje1);
@@ -46,6 +41,5 @@ char* API::initialize(string host, int port) {
             }
         }
     }
-    cout<<token<<endl;
-    return (char *) 'h';
+    return token;
 }

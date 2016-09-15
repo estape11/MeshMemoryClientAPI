@@ -28,7 +28,6 @@ public:
     //Constructor
     Client(){}
     //Metodos de la clase Client
-    void sendMessage(string ip, string port, string data);
     void setConnection(string ip, string port);
     void setVariables();
     bool writeData(string data);

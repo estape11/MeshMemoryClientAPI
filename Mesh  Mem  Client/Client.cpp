@@ -8,19 +8,6 @@ void error(const char *msg){
     exit(0); }
 
 /**
- * Envia un mensaje a un puerto e ip especifico
- * @param ip Ip del servidor
- * @param port PUerto por el que comunicara
- * @param data Informacion que enviara
- */
-void Client::sendMessage(string ip, string port, string data){
-    setConnection(ip, port);
-    setVariables();
-    writeData(data);
-    close(sock);
-}
-
-/**
  * Inicia la comunicacion con el servidor
  * @param ip Ip del servidor
  * @param port PUerto por el que comunicara
@@ -64,7 +51,6 @@ bool Client::writeData(string data){
     if (n < 0){
         error("ERROR writing to socket");
         return false;}
-    cout<<"Sending: "<<data<<endl;
     return true;
 }
 
@@ -73,24 +59,13 @@ bool Client::writeData(string data){
  * @return Retorna el mensaje enviado por parte del Servidor
  */
 string Client::readData(){
-    /*
-    char* temp[256];//limpia la memoria
-    *buffer=*temp;
-    n = read(sock, buffer, 255);
-    if (n < 0)
-        error("ERROR reading from socket");
-    //printf("%s\n", buffer);
-    string bufferStr((char *) buffer);
-    cout << "Server says: " << bufferStr << endl;
-    return bufferStr;
-     */
-        char buffer[1];
-        string reply;
-        if( recv(sock , buffer , sizeof(buffer) , 0) < 0){
-            puts("recv failed");
-        }
-        reply = buffer;
-        return reply;
+    char buffer[1];
+    string reply;
+    if( recv(sock , buffer , sizeof(buffer) , 0) < 0){
+        puts("recv failed");
+    }
+    reply = buffer;
+    return reply;
 
 }
 

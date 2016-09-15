@@ -11,6 +11,7 @@
 #include "UUID.h"
 
 using namespace std;
+template <class T>
 class xReference {
     //Atributos
     string ID;

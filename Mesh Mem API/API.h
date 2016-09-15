@@ -26,7 +26,7 @@ public:
     API(){
         cliente=Client();
     }
-    char* initialize(string host, int port);
+    string initialize(string host, int port);
     xReference xMalloc(int size); //(int size, xType type);
     xReference xMalloc(int size,int* value); //apuntador   al   espacio   de   memoria   que   con ene el valor por copiar.
     void xFree(xReference toFree); //Contacta a Mesh Mem Manager para liberar el espacio indicado por toFree
