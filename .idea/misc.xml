@@ -2,9 +2,11 @@
 <project version="4">
   <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$" />
   <component name="CidrRootsConfiguration">
-    <libraryRoots>
+    <sourceRoots>
+      <file path="$PROJECT_DIR$/Mesh  Mem  Client" />
+      <file path="$PROJECT_DIR$/Mesh Mem API" />
       <file path="$PROJECT_DIR$/rapidjson" />
-    </libraryRoots>
+    </sourceRoots>
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />

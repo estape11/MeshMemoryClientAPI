@@ -73,13 +73,36 @@ bool Client::writeData(string data){
  * @return Retorna el mensaje enviado por parte del Servidor
  */
 string Client::readData(){
+    /*
     char* temp[256];//limpia la memoria
     *buffer=*temp;
     n = read(sock, buffer, 255);
     if (n < 0)
         error("ERROR reading from socket");
-    printf("%s\n", buffer);
+    //printf("%s\n", buffer);
     string bufferStr((char *) buffer);
     cout << "Server says: " << bufferStr << endl;
     return bufferStr;
+     */
+        char buffer[1];
+        string reply;
+        if( recv(sock , buffer , sizeof(buffer) , 0) < 0){
+            puts("recv failed");
+        }
+        reply = buffer;
+        return reply;
+
+}
+
+string Client::read2(){
+    string message="";
+    string character="";
+    while(true) {
+        character = readData();
+        message+= character;
+        if(character=="\n"){
+            break;
+        }
+    }
+    return message;
 }

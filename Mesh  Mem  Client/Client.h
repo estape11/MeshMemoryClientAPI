@@ -33,6 +33,7 @@ public:
     void setVariables();
     bool writeData(string data);
     string readData();
+    string read2();
 };
 
 
