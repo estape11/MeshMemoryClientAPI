@@ -55,8 +55,8 @@ bool Client::writeData(string data){
 }
 
 /**
- * Lee lo que el servidor envia por medio del metodo read()
- * @return Retorna el mensaje enviado por parte del Servidor
+ * Lee lo que el servidor envia por medio del metodo recv
+ * @return Retorna un caracter mensaje enviado por parte del Servidor
  */
 string Client::readData(){
     char buffer[1];
@@ -68,6 +68,11 @@ string Client::readData(){
     return reply;
 
 }
+
+/**
+ * Lee lo que el servidor envia y une caracter por caracter para formar el mensaje completo
+ * @return Retorna el mensaje enviado por parte del Servidor
+ */
 
 string Client::read2(){
     string message="";

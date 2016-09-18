@@ -15,21 +15,15 @@ using namespace std;
 using namespace rapidjson;
 
 class API {
-//private:
-    char* host;
-    int port;
-    char xType;
+private:
     string token;
     Client cliente;
 
 public:
-    API(){
-        cliente=Client();
-    }
-    Document getJson(string json);
+    API(){cliente=Client();}
     string initialize(string host, int port);
-    xReference xMalloc(int size,int type); //(int size, xType type);
-    xReference xMalloc(int size,int* value); //apuntador   al   espacio   de   memoria   que   con ene el valor por copiar.
+    xReference xMalloc(int size, xType type); //(int size, xType type);
+    //xReference xMalloc(int size, xType value); //apuntador   al   espacio   de   memoria   que   con ene el valor por copiar.
     void xFree(xReference toFree); //Contacta a Mesh Mem Manager para liberar el espacio indicado por toFree
     void xAssign(xReference reference,void* value);//Asigna el valor al espacio apuntado por reference  .
 

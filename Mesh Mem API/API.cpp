@@ -8,7 +8,9 @@
 
 using namespace rapidjson;
 
-xReference API::xMalloc(int size, int type) {
+//INTEGER=0,LONG=1,FLOAT=2,SHORT=3,STRING=4,CHAR=5,ARRAY=6
+
+xReference API::xMalloc(int size, xType type) {
     StringBuffer jsonMsg;
     Writer<StringBuffer> writer(jsonMsg);
     writer.StartObject();
@@ -17,7 +19,7 @@ xReference API::xMalloc(int size, int type) {
     writer.String("funcion");
     writer.String("xMalloc");
     writer.String("type");
-    writer.Int(type);
+    writer.Int((int)type);
     writer.String("bytes");
     writer.Int(size);
     writer.EndObject();
@@ -28,13 +30,7 @@ xReference API::xMalloc(int size, int type) {
     const char* mensaje1=respuesta.c_str();
     Document doc;
     doc.ParseInsitu((char*)mensaje1);
-    if(doc.IsObject()){
-        if (doc.HasMember("UUID")){
-            if(doc["UUID"].IsString()){
-                status=doc["UUID"].GetString();
-            }
-        }
-    }
+    status=doc["UUID"].GetString();
 
     if(status=="no espacio"){
         xReference refer=xReference(NULL,size,type);
@@ -45,13 +41,6 @@ xReference API::xMalloc(int size, int type) {
         return refer;
     }
 
-}
-
-Document API::getJson(string json){
-    const char* mensaje1=json.c_str();
-    Document doc;
-    doc.ParseInsitu((char*)mensaje1);
-    return doc;
 }
 
 void API::xAssign(xReference reference, void *value) {}
@@ -71,16 +60,9 @@ string API::initialize(string host, int port) {
     cliente.setConnection(host,to_string(port));
     cliente.writeData(output);
     string respuesta=cliente.read2(); //recibe el token
-    string token;
     const char* mensaje1=respuesta.c_str();
     Document doc;
     doc.ParseInsitu((char*)mensaje1);
-    if(doc.IsObject()){
-        if (doc.HasMember("token")){
-            if(doc["token"].IsString()){
-                token=doc["token"].GetString();
-            }
-        }
-    }
+    token=doc["token"].GetString();
     return token;
 }

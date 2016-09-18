@@ -34,7 +34,7 @@
 
 int xReference::getSize() const {return size;}
 void xReference::setSize(int size) {xReference::size = size;}
-int xReference::getType() const {return type;}
+int xReference::getType() const {return (int) type;}
 void xReference::setType(xType type) {xReference::type = type; }
 const string &xReference::getID() const {return ID;}
 void xReference::setID(const string &ID) {xReference::ID = ID;}

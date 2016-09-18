@@ -3,48 +3,31 @@
 //
 #ifndef MESH_MEMORY_XREFERENCE_H
 #define MESH_MEMORY_XREFERENCE_H
+
 #include <iostream>
 #include <stdio.h>
 #include "xType.h"
-#include "../rapidjson/include/rapidjson/document.h"
-#include <resolv.h>
-#include "UUID.h"
 
 using namespace std;
-//template <class T>
+
 class xReference {
-    //Atributos
+private:
     string ID;
-    // Identifica el espacio de memoria dentro del Mesh Memory
-    int size;           // El   tamaño   del   dato   almacenado
-    int type;         // Tipo de dato almacenado
-
+    int size;
+    xType type;
 public:
-    //constructores
-    /*
-    xReference (int psize,xType ptype, int* pvalue){
+    xReference(string pID, int psize, xType ptype){
         size=psize;
-        value=pvalue;
         type= ptype;
-        UUID pid= UUID();
-        ID=pid.getUUID();
+        ID=pID;
     }
-*/
-    xReference (string id, int psize, int ptype ){
-        size=psize;
-        ID=id;
-        type=ptype;
-    }
-
-//metodos
-    bool operator ==(const xReference& refer) const ; // refer es una instancia cualquiera d xReference
+    bool operator ==(const xReference& refer) const ;
     bool operator !=(const xReference& refer) const ;
     int operator *()const ;
-    //void operator =();
     int getSize() const;
     void setSize(int size);
     int getType() const;
-    void setType(xType type);
+    void setType(xType);
     const string &getID() const;
     void setID(const string &ID);
 
