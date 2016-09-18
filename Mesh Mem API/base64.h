@@ -9,7 +9,7 @@
 
 using namespace std;
 
-string encode(string, unsigned int len);
+string encode(string Str);
 string decode(string const& code);
 
 
