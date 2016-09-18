@@ -11,9 +11,7 @@
 
 
 using namespace std;
-class xType {
-    string type;
-public:
+enum xType {
+        INTEGER=0,LONG=1,FLOAT=2,STRING=3,CHAR=4,ARRAY=5
 };
-
 #endif //MESH_MEMORY_XTYPE_H

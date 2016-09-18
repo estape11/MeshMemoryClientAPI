@@ -3,30 +3,30 @@
 //
 
 #include "xReference.h"
-/*
-void xReference::operator=() {}
-*/
-/**
- * Sobrecarga el operador *(referencia),
- * @return Retorna el valor al que apunta xReference
- */
-int xReference::operator *() const {return (*value);}
-/**
- * Sobrecarga el operador de comparacion ==
- * @param refer Instancia de xReference a comparar
- * @return Retorna True si son iguales y False en caso contrario
- */
-
-bool xReference::operator ==(const xReference& refer) const {
-    return((size== refer.getSize()) && (value==refer.getValue())); }
-
-/**
- * Sobrecarga el operador de comparacion !=
- * @param refer Instancia de xReference a comparar
- * @return Retorna True si son diferentes y False si son iguales
- */
-bool xReference::operator !=(const xReference& refer) const {
-    return (!((size== refer.getSize()) && (value==refer.getValue()))); }
+///*
+//void xReference::operator=() {}
+//
+///*
+// * Sobrecarga el operador *(referencia),
+// * @return Retorna el valor al que apunta xReference
+// */
+//int xReference::operator *() const {return (*value);}
+///**
+// * Sobrecarga el operador de comparacion ==
+// * @param refer Instancia de xReference a comparar
+// * @return Retorna True si son iguales y False en caso contrario
+// */
+//
+//bool xReference::operator ==(const xReference& refer) const {
+//    return((size== refer.getSize()) && (value==refer.getValue())); }
+//
+///**
+// * Sobrecarga el operador de comparacion !=
+// * @param refer Instancia de xReference a comparar
+// * @return Retorna True si son diferentes y False si son iguales
+// */
+//bool xReference::operator !=(const xReference& refer) const {
+//    return (!((size== refer.getSize()) && (value==refer.getValue()))); }
 
 
 
@@ -34,10 +34,8 @@ bool xReference::operator !=(const xReference& refer) const {
 
 int xReference::getSize() const {return size;}
 void xReference::setSize(int size) {xReference::size = size;}
-xType xReference::getType() const {return type;}
+int xReference::getType() const {return type;}
 void xReference::setType(xType type) {xReference::type = type; }
-void *xReference::getValue() const {return value; }
-void xReference::setValue(int* value) {xReference::value = value;}
 const string &xReference::getID() const {return ID;}
 void xReference::setID(const string &ID) {xReference::ID = ID;}
 

@@ -11,14 +11,13 @@
 #include "UUID.h"
 
 using namespace std;
-template <class T>
+//template <class T>
 class xReference {
     //Atributos
     string ID;
     // Identifica el espacio de memoria dentro del Mesh Memory
     int size;           // El   tamaño   del   dato   almacenado
-    xType type;         // Tipo de dato almacenado
-    int* value=NULL;   // Apuntador al espacio de memoria que con el valor por copiar
+    int type;         // Tipo de dato almacenado
 
 public:
     //constructores
@@ -31,11 +30,12 @@ public:
         ID=pid.getUUID();
     }
 */
-    xReference (int psize, int* pvalue){
+    xReference (string id, int psize, int ptype ){
         size=psize;
-        value=pvalue;
-        UUID pid= UUID();
-        ID=pid.getUUID();}
+        ID=id;
+        type=ptype;
+    }
+
 //metodos
     bool operator ==(const xReference& refer) const ; // refer es una instancia cualquiera d xReference
     bool operator !=(const xReference& refer) const ;
@@ -43,10 +43,8 @@ public:
     //void operator =();
     int getSize() const;
     void setSize(int size);
-    xType getType() const;
+    int getType() const;
     void setType(xType type);
-    void *getValue() const;
-    void setValue(int *value);
     const string &getID() const;
     void setID(const string &ID);
 
