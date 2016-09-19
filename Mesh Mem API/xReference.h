@@ -10,6 +10,7 @@
 
 using namespace std;
 
+//template<class tipo>
 class xReference {
 private:
     string ID;
@@ -21,9 +22,10 @@ public:
         type= ptype;
         ID=pID;
     }
+    void* operator *()const ;
     bool operator ==(const xReference& refer) const ;
     bool operator !=(const xReference& refer) const ;
-    int operator *()const ;
+    //void xReference::operator=();
     int getSize() const;
     void setSize(int size);
     int getType() const;

@@ -43,7 +43,7 @@ xReference API::xMalloc(int size, xType type) {
 
 }
 
-void API::xAssign(xReference reference, void *value) {}
+void API::xAssign(xReference reference, void* value) {}
 
 void API::xFree(xReference toFree) {}
 

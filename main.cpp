@@ -5,7 +5,8 @@ int main(){
     API memoria=API();
     string token=memoria.initialize("192.168.100.3", 8080);
     cout<<token<<endl;
-    memoria.xMalloc(5,xType::INTEGER);
+    //xReference referencia= memoria.xMalloc(5,xType::INTEGER);
+    while(true){}
     cout<<"Exito..."<<endl;
 }
 

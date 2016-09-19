@@ -17,9 +17,8 @@ using namespace rapidjson;
 class API {
 private:
     string token;
-    Client cliente;
-
 public:
+    Client cliente;
     API(){cliente=Client();}
     string initialize(string host, int port);
     xReference xMalloc(int size, xType type); //(int size, xType type);
