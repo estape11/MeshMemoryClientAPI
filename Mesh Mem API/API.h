@@ -10,6 +10,9 @@
 #include "../rapidjson/include/rapidjson/rapidjson.h"
 #include "../rapidjson/include/rapidjson/document.h"
 #include "../Mesh  Mem  Client/Client.h"
+#include "iostream"
+#include "string"
+#include "base64.h"
 
 using namespace std;
 using namespace rapidjson;
@@ -24,7 +27,7 @@ public:
     //xReference xMalloc(int size, xType value); //apuntador   al   espacio   de   memoria   que   con ene el valor por copiar.
     void xFree(xReference toFree); //Contacta a Mesh Mem Manager para liberar el espacio indicado por toFree
     void xAssign(xReference reference,void* value);//Asigna el valor al espacio apuntado por reference  .
-
+    string getValueAsBase64(xReference reference,void* value);
 };
 
 #endif //MESH_MEMORY_API_H

@@ -68,13 +68,7 @@ void xReference::setID(const string &ID) {xReference::ID = ID;}
 
 //metodo de prueba para asignar un valor dentro del manager
 void xReference::setData(void* valor) {
-    StringBuffer jsonMsg;
-    Writer<StringBuffer> writer(jsonMsg);
-    writer.StartObject();
-    writer.String("remitente");writer.String("cliente");
-    writer.String("funcion");writer.String("asignar");
-    writer.String("UUID");writer.String(ID.c_str());
-    writer.EndObject();
+
 }
 
 
