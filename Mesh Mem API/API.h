@@ -13,13 +13,12 @@
 
 using namespace std;
 using namespace rapidjson;
-
+static Client cliente;
 class API {
 private:
     string token;
 public:
-    Client cliente;
-    API(){cliente=Client();}
+    API();
     string initialize(string host, int port);
     xReference xMalloc(int size, xType type); //(int size, xType type);
     //xReference xMalloc(int size, xType value); //apuntador   al   espacio   de   memoria   que   con ene el valor por copiar.

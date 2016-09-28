@@ -55,12 +55,26 @@ bool xReference::operator !=(const xReference& refer) const {
 
 
 ///////////////////GETERS/SETTERS////////////////////////////////
-
+xReference& xReference::operator=(const xReference& dato) {
+    cliente.writeData("HELLO");
+}
 int xReference::getSize() const {return size;}
 void xReference::setSize(int size) {xReference::size = size;}
 int xReference::getType() const {return (int) type;}
 void xReference::setType(xType type) {xReference::type = type; }
 const string &xReference::getID() const {return ID;}
 void xReference::setID(const string &ID) {xReference::ID = ID;}
+
+
+//metodo de prueba para asignar un valor dentro del manager
+void xReference::setData(void* valor) {
+    StringBuffer jsonMsg;
+    Writer<StringBuffer> writer(jsonMsg);
+    writer.StartObject();
+    writer.String("remitente");writer.String("cliente");
+    writer.String("funcion");writer.String("asignar");
+    writer.String("UUID");writer.String(ID.c_str());
+    writer.EndObject();
+}
 
 

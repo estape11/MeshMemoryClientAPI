@@ -25,14 +25,14 @@ public:
     void* operator *()const ;
     bool operator ==(const xReference& refer) const ;
     bool operator !=(const xReference& refer) const ;
-    //void xReference::operator=();
+    xReference & operator=(const xReference &rhs);
     int getSize() const;
     void setSize(int size);
     int getType() const;
     void setType(xType);
     const string &getID() const;
     void setID(const string &ID);
-
+    void setData(void* valor);
 };
 
 #endif //MESH_MEMORY_XREFERENCE_H

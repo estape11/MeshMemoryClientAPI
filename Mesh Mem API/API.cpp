@@ -9,6 +9,9 @@
 using namespace rapidjson;
 
 //INTEGER=0,LONG=1,FLOAT=2,SHORT=3,STRING=4,CHAR=5,ARRAY=6
+API::API(){
+    cliente=Client();
+}
 
 xReference API::xMalloc(int size, xType type) {
     StringBuffer jsonMsg;
@@ -22,6 +25,8 @@ xReference API::xMalloc(int size, xType type) {
     writer.Int((int)type);
     writer.String("bytes");
     writer.Int(size);
+    writer.String("token");
+    writer.String(token.c_str());
     writer.EndObject();
     string output= jsonMsg.GetString();
     cliente.writeData(output);
@@ -31,7 +36,7 @@ xReference API::xMalloc(int size, xType type) {
     Document doc;
     doc.ParseInsitu((char*)mensaje1);
     status=doc["UUID"].GetString();
-
+    cout<<respuesta<<endl;
     if(status=="no espacio"){
         xReference refer=xReference(NULL,size,type);
         return refer;
