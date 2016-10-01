@@ -9,12 +9,11 @@
 
 //void xReference::operator=() {}
 /**
- * Sobrecarga el operador *(referencia),
+ * Overload the operatdor *(reference),
  * @return Retorna el valor al que apunta xReference
  */
 void* xReference::operator *() const {
     void* dato;
-    /*
     StringBuffer jsonMsg;
     Writer<StringBuffer> writer(jsonMsg);
     writer.StartObject();
@@ -22,14 +21,14 @@ void* xReference::operator *() const {
     writer.String("funcion");writer.String("desreferencia");
     writer.String("UUID");writer.String(ID.c_str());
     writer.EndObject();
-    API::cliente.writeData(jsonMsg.GetString());
-    string valor=API::cliente.readData();
+    cliente.writeData(jsonMsg.GetString());
+    string valor=cliente.readData();
     switch (type){
         case xType::INTEGER:{
             // valor recibido del manager
         }
     }
-    */
+
     return dato;
 }
 /**

@@ -9,10 +9,20 @@
 using namespace rapidjson;
 
 //INTEGER=0,LONG=1,FLOAT=2,SHORT=3,STRING=4,CHAR=5,ARRAY=6
+/**
+ * Constructor
+ * @return void
+ */
 API::API(){
     cliente=Client();
 }
 
+/**
+ * Allocate memory space in the manager
+ * @param size
+ * @param type
+ * @return the reference
+ */
 xReference API::xMalloc(int size, xType type) {
     StringBuffer jsonMsg;
     Writer<StringBuffer> writer(jsonMsg);
@@ -48,6 +58,11 @@ xReference API::xMalloc(int size, xType type) {
 
 }
 
+/**
+ * Assign the value of the pointer value and then send to the manager the reference (UUID) to set the value
+ * @param reference
+ * @param value
+ */
 void API::xAssign(xReference reference, void* value) {
     string base64Value=getValueAsBase64(reference, value);
     StringBuffer jsonMsg;
@@ -60,8 +75,18 @@ void API::xAssign(xReference reference, void* value) {
     writer.EndObject();
 }
 
+/**
+ * Relase the memory of the reference
+ * @param toFree
+ */
 void API::xFree(xReference toFree) {}
 
+/**
+ * Conect to the manager using the IP and the Port
+ * @param host
+ * @param port
+ * @return the token
+ */
 string API::initialize(string host, int port) {
     StringBuffer jsonMsg;
     Writer<StringBuffer> writer(jsonMsg);
@@ -83,10 +108,10 @@ string API::initialize(string host, int port) {
 }
 
 /**
- * Identifica que tipo es value, y lo convierte en base64
- * @param reference instancia de xReference, obtiene el valor de su Xtype
- * @param value Puntero que se buscara su valor primitivo
- * @return Retorna el value en base 64
+ * Identify wich value was and then decode to base 64
+ * @param reference instance of xReference, gets the type using the xType enum
+ * @param value of void pointer
+ * @return string of the value converted in base64
  */
 string API::getValueAsBase64(xReference reference, void *value) {
     int num = reference.getType();
@@ -98,7 +123,6 @@ string API::getValueAsBase64(xReference reference, void *value) {
     string stringValue;
     array arrayValue;
     string base64;
-
     switch (num){
         case 0:{
             numValue=*((int*)value);

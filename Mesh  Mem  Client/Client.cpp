@@ -8,10 +8,9 @@ void error(const char *msg){
     exit(0); }
 
 /**
- * Inicia la comunicacion con el servidor
- * @param ip Ip del servidor
- * @param port PUerto por el que comunicara
- * @param data Informacion que enviara
+ * Initialize the client to the manager
+ * @param ip of the manager
+ * @param port of the manager
  */
 void Client::setConnection(string ip, string port) {
     portno = atoi(port.c_str());
@@ -27,7 +26,7 @@ void Client::setConnection(string ip, string port) {
 }
 
 /**
- * Inicia variables necesarias para la comunicacion
+ * Starts the needed variables
  */
 void Client::setVariables(){
     bzero((char*) &ip_adress, sizeof(ip_adress));
@@ -41,9 +40,9 @@ void Client::setVariables(){
 }
 
 /**
- * Invoca al metodo write() el cual envia el mensaje al servidor
- * @param data Mensaje a enviar
- * @return Retorna True si logro enviar el mensaje
+ * Send message to the manager
+ * @param data
+ * @return boolean
  */
 bool Client::writeData(string data){
     data+='\n';
@@ -55,8 +54,8 @@ bool Client::writeData(string data){
 }
 
 /**
- * Lee lo que el servidor envia por medio del metodo recv
- * @return Retorna un caracter mensaje enviado por parte del Servidor
+ * Reads chars of the message from the manager
+ * @return string (one char)
  */
 string Client::readData(){
     char buffer[1];
@@ -70,8 +69,8 @@ string Client::readData(){
 }
 
 /**
- * Lee lo que el servidor envia y une caracter por caracter para formar el mensaje completo
- * @return Retorna el mensaje enviado por parte del Servidor
+ * Concatenated the char received from the manager
+ * @return the whole string message
  */
 
 string Client::read2(){

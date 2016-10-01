@@ -12,6 +12,11 @@ static const string base64_chars =
 
 static inline bool is_base64(unsigned char c) {return (isalnum(c) || (c == '+') || (c == '/')); }
 
+/**
+ * Encode strings in base64
+ * @param Str
+ * @return the encoded string
+ */
 string encode(string Str) {
     unsigned int in_len=Str.length();
     unsigned char const* bytes_to_encode = reinterpret_cast<const unsigned char*>(Str.c_str());
@@ -63,6 +68,11 @@ string encode(string Str) {
 
 }
 
+/**
+ * Docodifies the string from base64 to the original string value
+ * @param code
+ * @return
+ */
 string decode(string const& code) {
     int in_len = code.size();
     int i = 0;

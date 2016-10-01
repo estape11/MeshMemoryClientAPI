@@ -5,7 +5,7 @@
 #include "HexConverter.h"
 
 /**
- * Convierte Integer a un String en formato Hexadecimal
+ * Convert the string to haxadecimal notation
  * @return String en formato Hexadecimal
  */
 string HexConverter::intToHexString() {
@@ -22,7 +22,7 @@ string HexConverter::intToHexString() {
     return hexStr;
 }
 /**
- * Convierte
+ * Convert from haxadecimal to int
  * @return
  */
 int HexConverter::intStringToHex() {
@@ -32,9 +32,9 @@ int HexConverter::intStringToHex() {
     return x;
 }
 /**
- * Convierte un char a int
- * @param char a convertir
- * @return Retorna el char convertido a int
+ * Convert from char to int
+ * @param char
+ * @return int
  */
 int HexConverter::hexCharToInt(char a) {
     if(a>='0' && a<='9')
@@ -46,7 +46,7 @@ int HexConverter::hexCharToInt(char a) {
 }
 
 /**
- * COnvierte un Hexadecimal a String
+ * Convert from hexadecimal to string
  * @return Retorna un String que representa el Valor del Hexadecimal
  */
 string HexConverter::hexToString() {
@@ -62,8 +62,8 @@ string HexConverter::hexToString() {
     return HexString.str();
 }
 /**
- * Convierte un String a base Hexadeciaml
- * @return Retorna un String
+ * Convert from string to hexadecimal
+ * @return string
  */
 string HexConverter::StringToHex() {
     string str =getStr() ;
