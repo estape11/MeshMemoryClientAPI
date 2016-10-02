@@ -1,11 +1,9 @@
-//
-// Created by jeanpolalvarado on 04/09/16.
-//
-
 #include "xReference.h"
 #include "API.h"
 #include "../rapidjson/include/rapidjson/stringbuffer.h"
 #include "../rapidjson/include/rapidjson/writer.h"
+
+//INTEGER=0,LONG=1,FLOAT=2,SHORT=3,STRING=4,CHAR=5
 
 //void xReference::operator=() {}
 /**
@@ -20,15 +18,27 @@ void* xReference::operator *() const {
     writer.String("remitente");writer.String("cliente");
     writer.String("funcion");writer.String("desreferencia");
     writer.String("UUID");writer.String(ID.c_str());
+    writer.String("token");writer.String((*globalToken).c_str()); //globalToken es un puntero al token que tiene API
     writer.EndObject();
     cliente.writeData(jsonMsg.GetString());
-    string valor=cliente.readData();
+    string respuesta=cliente.read2();
+    Document jsonValue;
+    jsonValue.ParseInsitu((char*) respuesta.c_str()).;
+    string valor=jsonValue["value"].GetString();
     switch (type){
         case xType::INTEGER:{
-            // valor recibido del manager
+            dato=new (int);
+            int data=stoi(decode(valor));
+            *(int*)dato=data;
+            break;
+        }
+        case xType::LONG:{
+            dato=new (long);
+            long data=stol(decode(valor));
+            *(long*)dato=data;
+            break;
         }
     }
-
     return dato;
 }
 /**
@@ -63,7 +73,6 @@ int xReference::getType() const {return (int) type;}
 void xReference::setType(xType type) {xReference::type = type; }
 const string &xReference::getID() const {return ID;}
 void xReference::setID(const string &ID) {xReference::ID = ID;}
-
 
 //metodo de prueba para asignar un valor dentro del manager
 void xReference::setData(void* valor) {

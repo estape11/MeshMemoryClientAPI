@@ -8,13 +8,44 @@
 
 using namespace rapidjson;
 
-//INTEGER=0,LONG=1,FLOAT=2,SHORT=3,STRING=4,CHAR=5,ARRAY=6
+//INTEGER=0,LONG=1,FLOAT=2,SHORT=3,STRING=4,CHAR=5
+
 /**
  * Constructor
  * @return void
  */
 API::API(){
     cliente=Client();
+}
+
+/**
+ * Conect to the manager using the IP and the Port
+ * @param host
+ * @param port
+ * @return the token
+ */
+string API::initialize(string host, int port) {
+    cliente.setConnection(host,to_string(port)); //inicio la conexion
+    xToken();//genero el token
+    return token;
+}
+
+/**
+ * Generates the token if its the first conection or the token doesnt work
+ */
+void API::xToken() {
+    StringBuffer jsonMsg;
+    Writer<StringBuffer> writer(jsonMsg);
+    writer.StartObject();
+    writer.String("remitente");writer.String("cliente");
+    writer.String("funcion");writer.String("token");
+    writer.EndObject();
+    cliente.writeData(jsonMsg.GetString());
+    string respuesta=cliente.read2(); //recibe el token
+    Document jsonMSG; //parseador
+    jsonMSG.ParseInsitu((char*)respuesta.c_str()); //lo parsea
+    token=jsonMSG["token"].GetString(); //lo utilizo como JsonObject
+    globalToken=&token;
 }
 
 /**
@@ -27,35 +58,41 @@ xReference API::xMalloc(int size, xType type) {
     StringBuffer jsonMsg;
     Writer<StringBuffer> writer(jsonMsg);
     writer.StartObject();
-    writer.String("remitente");
-    writer.String("cliente");
-    writer.String("funcion");
-    writer.String("xMalloc");
-    writer.String("type");
-    writer.Int((int)type);
-    writer.String("bytes");
-    writer.Int(size);
-    writer.String("token");
-    writer.String(token.c_str());
+    writer.String("remitente");writer.String("cliente");
+    writer.String("funcion");writer.String("xMalloc");
+    writer.String("type");writer.Int((int)type);
+    writer.String("bytes");writer.Int(size);
+    writer.String("token");writer.String(token.c_str());
     writer.EndObject();
-    string output= jsonMsg.GetString();
-    cliente.writeData(output);
+    cliente.writeData(jsonMsg.GetString());
     string respuesta=cliente.read2();
     string status;
-    const char* mensaje1=respuesta.c_str();
-    Document doc;
-    doc.ParseInsitu((char*)mensaje1);
-    status=doc["UUID"].GetString();
-    cout<<respuesta<<endl;
-    if(status=="no espacio"){
-        xReference refer=xReference(NULL,size,type);
-        return refer;
+    Document jsonMSG;
+    jsonMSG.ParseInsitu((char*)respuesta.c_str());
+    status=jsonMSG["funcion"].GetString();
+    if(status=="error"){
+        int error=jsonMSG["error"].GetInt();
+        switch(error){
+            case 1: {
+                cout << "No existe el token en la lista del manager" << endl;
+                xToken(); //solicito nuevo token
+                break;
+            }
+            case 2:{
+                cout<<"El token expiró"<<endl;
+                xToken(); //solicito nuevo token
+                break;
+            }
+            case 3:{
+                cout<<"No hay memoria"<<endl;
+                break;
+            }
+        }
     }
     else{
         xReference refer=xReference(status,size,type);
         return refer;
     }
-
 }
 
 /**
@@ -72,38 +109,20 @@ void API::xAssign(xReference reference, void* value) {
     writer.String("funcion");writer.String("asignar");
     writer.String("UUID");writer.String(reference.getID().c_str());
     writer.String("value");writer.String(base64Value.c_str());
+    writer.String("token");writer.String(token.c_str());
     writer.EndObject();
+    cliente.writeData(jsonMsg.GetString());
 }
 
 /**
  * Relase the memory of the reference
  * @param toFree
  */
-void API::xFree(xReference toFree) {}
+void API::xFree(xReference toFree) {
+    //release the memory in the manager
+}
 
-/**
- * Conect to the manager using the IP and the Port
- * @param host
- * @param port
- * @return the token
- */
-string API::initialize(string host, int port) {
-    StringBuffer jsonMsg;
-    Writer<StringBuffer> writer(jsonMsg);
-    writer.StartObject();
-    writer.String("remitente");
-    writer.String("cliente");
-    writer.String("funcion");
-    writer.String("token");
-    writer.EndObject();
-    string output= jsonMsg.GetString();
-    cliente.setConnection(host,to_string(port));
-    cliente.writeData(output);
-    string respuesta=cliente.read2(); //recibe el token
-    const char* mensaje1=respuesta.c_str();
-    Document doc;
-    doc.ParseInsitu((char*)mensaje1);
-    token=doc["token"].GetString();
+string API::getToken() {
     return token;
 }
 
@@ -121,7 +140,6 @@ string API::getValueAsBase64(xReference reference, void *value) {
     short shortValue;
     char charValue;
     string stringValue;
-    array arrayValue;
     string base64;
     switch (num){
         case 0:{
