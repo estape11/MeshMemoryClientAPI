@@ -15,7 +15,7 @@ using namespace rapidjson;
  * @return void
  */
 API::API(){
-    cliente=Client();
+
 }
 
 /**
@@ -90,7 +90,8 @@ xReference API::xMalloc(int size, xType type) {
         }
     }
     else{
-        xReference refer=xReference(status,size,type);
+        string uuid=jsonMSG["UUID"].GetString();
+        xReference refer=xReference(uuid,size,type);
         return refer;
     }
 }
@@ -111,7 +112,8 @@ void API::xAssign(xReference reference, void* value) {
     writer.String("value");writer.String(base64Value.c_str());
     writer.String("token");writer.String(token.c_str());
     writer.EndObject();
-    cliente.writeData(jsonMsg.GetString());
+    string output=jsonMsg.GetString();
+    cliente.writeData(output);
 }
 
 /**
@@ -120,6 +122,40 @@ void API::xAssign(xReference reference, void* value) {
  */
 void API::xFree(xReference toFree) {
     //release the memory in the manager
+}
+
+void* API::xDereference(xReference reference) {
+    void* dato;
+    StringBuffer jsonMsg;
+    Writer<StringBuffer> writer(jsonMsg);
+    writer.StartObject();
+    writer.String("remitente");writer.String("cliente");
+    writer.String("funcion");writer.String("desreferencia");
+    writer.String("UUID");writer.String(reference.getID().c_str());
+    writer.String("token");writer.String((*globalToken).c_str()); //globalToken es un puntero al token que tiene API
+    writer.EndObject();
+    cliente.writeData(jsonMsg.GetString());
+    string respuesta=cliente.read2();
+    Document jsonValue;
+    jsonValue.ParseInsitu((char*) respuesta.c_str());
+    string valor=jsonValue["value"].GetString();
+    switch (reference.getType()){
+        case 0:{
+            dato=new (int);
+            int data=stoi(decode(valor));
+            *(int*)dato=data;
+            cout<<data<<endl;
+            break;
+        }
+        case 1:{
+            dato=new (long);
+            long data=stol(decode(valor));
+            *(long*)dato=data;
+            break;
+        }
+    }
+
+return dato;
 }
 
 string API::getToken() {

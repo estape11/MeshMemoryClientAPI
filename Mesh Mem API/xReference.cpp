@@ -23,13 +23,14 @@ void* xReference::operator *() const {
     cliente.writeData(jsonMsg.GetString());
     string respuesta=cliente.read2();
     Document jsonValue;
-    jsonValue.ParseInsitu((char*) respuesta.c_str()).;
+    jsonValue.ParseInsitu((char*) respuesta.c_str());
     string valor=jsonValue["value"].GetString();
     switch (type){
         case xType::INTEGER:{
             dato=new (int);
             int data=stoi(decode(valor));
             *(int*)dato=data;
+            cout<<data<<endl;
             break;
         }
         case xType::LONG:{
@@ -39,6 +40,7 @@ void* xReference::operator *() const {
             break;
         }
     }
+
     return dato;
 }
 /**

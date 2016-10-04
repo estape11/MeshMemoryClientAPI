@@ -17,7 +17,7 @@
 using namespace std;
 using namespace rapidjson;
 
-static Client cliente;
+static Client cliente=Client();
 static string* globalToken=new string;
 
 class API {
@@ -33,6 +33,7 @@ public:
     void xAssign(xReference reference,void* value);
     string getValueAsBase64(xReference reference,void* value);
     string getToken();
+    void* xDereference(xReference reference);
 };
 
 #endif //MESH_MEMORY_API_H
