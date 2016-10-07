@@ -12,12 +12,12 @@ int main(){
     cout<<*(int*)(memoria.xDereference(referencia))<<endl;
 
     xReference referencia2= memoria.xMalloc(1,xType::CHAR);
-    char hola='h';
-    memoria.xAssign(referencia2, &hola);
+    //char hola='h';
+    //memoria.xAssign(referencia2, &hola);
 
-    char valor=*(char*)(memoria.xDereference(referencia2));
+    //char valor=*(char*)(memoria.xDereference(referencia2));
 
-    cout<<valor<<endl;
+    //cout<<valor<<endl;
 
     cout<<"Exito..."<<endl;
 
