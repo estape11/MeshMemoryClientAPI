@@ -20,8 +20,7 @@ void* xReference::operator *() const {
     writer.String("UUID");writer.String(ID.c_str());
     writer.String("token");writer.String((*globalToken).c_str()); //globalToken es un puntero al token que tiene API
     writer.EndObject();
-    cliente.writeData(jsonMsg.GetString());
-    string respuesta=cliente.read2();
+    string respuesta=send(jsonMsg.GetString());
     Document jsonValue;
     jsonValue.ParseInsitu((char*) respuesta.c_str());
     string valor=jsonValue["value"].GetString();

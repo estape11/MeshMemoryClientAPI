@@ -9,9 +9,10 @@ int main(){
     int numero=44;
     memoria.xAssign(referencia, &numero);
 
-    cout<<*(int*)(memoria.xDereference(referencia))<<endl;
+    cout<<*referencia<<endl;
 
     xReference referencia2= memoria.xMalloc(1,xType::CHAR);
+
     //char hola='h';
     //memoria.xAssign(referencia2, &hola);
 

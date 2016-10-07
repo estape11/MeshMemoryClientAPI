@@ -16,10 +16,13 @@
 
 using namespace std;
 using namespace rapidjson;
-
 static Client cliente=Client();
 static string* globalToken=new string;
-
+static string send(string dato){
+    cliente.writeData(dato);
+    string respuesta=cliente.read2();
+    return respuesta;
+}
 class API {
 private:
     string token;

@@ -14,9 +14,7 @@ using namespace rapidjson;
  * Constructor
  * @return void
  */
-API::API(){
-
-}
+API::API(){}
 
 /**
  * Conect to the manager using the IP and the Port
