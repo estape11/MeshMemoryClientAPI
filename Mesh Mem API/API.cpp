@@ -144,13 +144,27 @@ void* API::xDereference(xReference reference) {
             dato=new (int);
             int data=stoi(decode(valor));
             *(int*)dato=data;
-            cout<<data<<endl;
             break;
         }
         case 1:{
             dato=new (long);
             long data=stol(decode(valor));
             *(long*)dato=data;
+            break;
+        }
+        case 4:{
+            dato= new string;
+            string data=(decode(valor));
+            *(static_cast<string *>(dato))=data;
+            break;
+        }
+        case 5:{/**
+            dato=new (char);
+            char data[10];
+            char data[] = (char*)decode(valor).c_str();
+            *(char*) dato =(char*) (char) data;
+            break;
+            */
             break;
         }
     }
@@ -177,37 +191,41 @@ string API::getValueAsBase64(xReference reference, void *value) {
     char charValue;
     string stringValue;
     string base64;
-    switch (num){
-        case 0:{
-            numValue=*((int*)value);
-            base64= encode((to_string(numValue)));
+    switch (num) {
+        case 0: {
+            numValue = *((int *) value);
+            base64 = encode((to_string(numValue)));
             break;
         }
-        case 1:{
-            longValue=*((long*)value);
-            base64= encode((to_string(longValue)));
+        case 1: {
+            longValue = *((long *) value);
+            base64 = encode((to_string(longValue)));
             break;
         }
-        case 2:{
-            floatValue=*((float *)value);
-            base64= encode((to_string(floatValue)));
+        case 2: {
+            floatValue = *((float *) value);
+            base64 = encode((to_string(floatValue)));
             break;
         }
-        case 3:{
-            shortValue=*((short *)value);
-            base64= encode((to_string(shortValue)));
+        case 3: {
+            shortValue = *((short *) value);
+            base64 = encode((to_string(shortValue)));
             break;
         }
-        case 4:{
+        case 4: {
+            stringValue = *((string *) value);
+            base64 = encode(stringValue);
+            break;
+        }
+        case 5: {/**
             charValue=*((char*)value);
-            base64= encode((to_string(charValue)));
-            break;
-        }
-        case 5:{
-            stringValue=*((string*)value);
-            base64= encode(stringValue);
+            string valor;
+            valor.push_back(charValue);
+            base64= encode(valor);
+            */
             break;
         }
     }
     return base64;
 }
+

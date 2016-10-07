@@ -7,9 +7,19 @@ int main(){
     cout<<token<<endl;
     xReference referencia= memoria.xMalloc(4,xType::INTEGER);
     int numero=44;
-    int* ptr=&numero;
-    memoria.xAssign(referencia, ptr);
-    //memoria.xDereference(referencia);
+    memoria.xAssign(referencia, &numero);
+
+    cout<<*(int*)(memoria.xDereference(referencia))<<endl;
+
+    xReference referencia2= memoria.xMalloc(1,xType::CHAR);
+    char hola='h';
+    memoria.xAssign(referencia2, &hola);
+
+    char valor=*(char*)(memoria.xDereference(referencia2));
+
+    cout<<valor<<endl;
+
     cout<<"Exito..."<<endl;
+
 }
 
