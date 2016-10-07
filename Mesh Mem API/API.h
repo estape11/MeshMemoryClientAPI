@@ -16,7 +16,7 @@
 
 using namespace std;
 using namespace rapidjson;
-static Client cliente=Client();
+static Client cliente= Client();
 static string* globalToken=new string;
 static string send(string dato){
     cliente.writeData(dato);

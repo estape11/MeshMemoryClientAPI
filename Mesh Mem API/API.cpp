@@ -119,7 +119,15 @@ void API::xAssign(xReference reference, void* value) {
  * @param toFree
  */
 void API::xFree(xReference toFree) {
-    //release the memory in the manager
+    StringBuffer jsonMsg;
+    Writer<StringBuffer> writer(jsonMsg);
+    writer.StartObject();
+    writer.String("remitente");writer.String("cliente");
+    writer.String("funcion");writer.String("xFree");
+    writer.String("UUID");writer.String(toFree.getID().c_str());
+    writer.String("token");writer.String((*globalToken).c_str()); //globalToken es un puntero al token que tiene API
+    writer.EndObject();
+    cliente.writeData(jsonMsg.GetString());
 }
 
 void* API::xDereference(xReference reference) {
