@@ -3,7 +3,7 @@ using namespace std;
 
 int main(){
     API memoria=API();
-    string token=memoria.initialize("192.168.100.3", 8080);
+    string token=memoria.initialize("192.168.0.22", 8080);
     cout<<token<<endl;
     xReference referencia= memoria.xMalloc(4,xType::INTEGER);
     int numero=44;
